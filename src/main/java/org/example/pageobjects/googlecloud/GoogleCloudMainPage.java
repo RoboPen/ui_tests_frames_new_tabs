@@ -4,12 +4,10 @@ import org.example.pageobjects.BasePage;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class MainPage extends BasePage {
-    public MainPage(WebDriver webDriver) {
+public class GoogleCloudMainPage extends BasePage {
+    public GoogleCloudMainPage(WebDriver webDriver) {
         super(webDriver);
     }
 
@@ -19,19 +17,19 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//input[@name='q']")
     private WebElement searchInput;
 
-    public MainPage openMainPage(){
+    public GoogleCloudMainPage openMainPage(){
         webDriver.get("https://cloud.google.com/");
         return this;
     }
 
-    public MainPage clickSearchLoupe(){
-        webDriverWait.until(ExpectedConditions.visibilityOf(searchLoupe));
+    public GoogleCloudMainPage clickSearchLoupe(){
+        waitForVisibility(searchLoupe);
         searchLoupe.click();
         return this;
     }
 
     public SearchResultPage search(String input){
-        webDriverWait.until(ExpectedConditions.visibilityOf(searchInput));
+        waitForVisibility(searchInput);
         searchInput.sendKeys(input);
         searchInput.sendKeys(Keys.ENTER);
         return new SearchResultPage(webDriver);

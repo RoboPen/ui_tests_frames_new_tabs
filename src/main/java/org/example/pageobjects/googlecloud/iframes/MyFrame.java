@@ -1,13 +1,15 @@
 package org.example.pageobjects.googlecloud.iframes;
 
 import org.example.pageobjects.BasePage;
-import org.openqa.selenium.By;
+import org.example.pageobjects.googlecloud.modules.EmailYourEstimatePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MyFrame extends BasePage {
     public MyFrame(WebDriver webDriver) {
@@ -76,6 +78,12 @@ public class MyFrame extends BasePage {
 
     @FindBy(xpath = "//md-content[@id='compute']//div[contains(text(),'Local SSD')]")
     private WebElement localSDDEstimate;
+
+    @FindBy(xpath = "//md-card-content[@id='resultBlock']//h2[@class='md-title']/b")
+    private WebElement getMonthlyEstimatedCost;
+
+    @FindBy(id = "Email Estimate")
+    private WebElement emailEstimateBtn;
 
     public MyFrame setNumberOfInstancesInput(String numOfInstances) {
         webDriverWait.until(ExpectedConditions.visibilityOf(numberOfInstancesInput));
@@ -208,5 +216,19 @@ public class MyFrame extends BasePage {
 
     public String getLocalSDDEstimate() {
         return localSDDEstimate.getText();
+    }
+
+    public String getEstimatedMonthlyCost(){
+        Pattern p = Pattern.compile("(\\d{1,3},)?\\d{3}\\.\\d{2}");
+        Matcher m = p.matcher(getMonthlyEstimatedCost.getText());
+        m.find();
+        return m.group();
+    }
+
+    public EmailYourEstimatePage clickEmailEstimateBtn(){
+        waitForVisibility(emailEstimateBtn);
+        emailEstimateBtn.click();
+
+        return new EmailYourEstimatePage(webDriver);
     }
 }

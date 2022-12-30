@@ -13,24 +13,28 @@ public class GoogleCloudCalculatorPage extends BasePage {
         super(webDriver);
     }
 
+    private final String myFrameId = "myFrame";
+
     @FindBy(xpath = "//button[@class='devsite-snackbar-action']")
     private WebElement cookiesNotificationOkBtn;
 
     @FindBy(xpath = "//iframe[contains(@name,'goog')]")
     private WebElement outerFrame;
 
+    @FindBy(id = "myFrame")
+    private WebElement myFrame;
+
     public GoogleCloudCalculatorPage clickOkCookieNotification(){
-        webDriverWait.until(ExpectedConditions.visibilityOf(cookiesNotificationOkBtn));
+        waitForVisibility(cookiesNotificationOkBtn);
         cookiesNotificationOkBtn.click();
         return this;
     }
 
     public MyFrame switchToMyFrame(){
-        webDriverWait.until(ExpectedConditions.visibilityOf(outerFrame));
+        waitForVisibility(outerFrame);
         webDriver.switchTo().frame(outerFrame);
-        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//iframe[@id='myFrame']")));
-        WebElement innerFrame = webDriver.findElement(By.xpath("//iframe[@id='myFrame']"));
-        webDriver.switchTo().frame(innerFrame);
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(myFrameId)));
+        webDriver.switchTo().frame(myFrame);
         return new MyFrame(webDriver);
     }
 }

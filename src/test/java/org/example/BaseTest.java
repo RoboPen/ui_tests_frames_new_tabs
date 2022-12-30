@@ -16,8 +16,8 @@ public class BaseTest {
     }
 
 
-    /*@AfterTest
+    @AfterTest
     public void tearDown(){
         webDriver.quit();
-    }*/
+    }
 }

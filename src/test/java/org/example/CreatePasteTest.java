@@ -1,11 +1,11 @@
 package org.example;
 
 import org.example.pageobjects.pastebin.CreatedPastePage;
-import org.example.pageobjects.pastebin.MainPastebinPage;
+import org.example.pageobjects.pastebin.PastebinMainPage;
 import org.testng.annotations.Test;
 
-public class BringItOn extends BaseTest {
-    MainPastebinPage mainPastebinPage = new MainPastebinPage(webDriver);
+public class CreatePasteTest extends BaseTest {
+    PastebinMainPage pastebinMainPage = new PastebinMainPage(webDriver);
 
     @Test
     public void verifyPasteCreatedWithCorrectText() {
@@ -18,7 +18,7 @@ public class BringItOn extends BaseTest {
         String expirationTime = "10 min";
         int value = -150;
 
-        CreatedPastePage createdPastePage = mainPastebinPage
+        CreatedPastePage createdPastePage = pastebinMainPage
                 .openMainPage()
                 .clickAgree()
                 .writeTextIntoTextArea(code)

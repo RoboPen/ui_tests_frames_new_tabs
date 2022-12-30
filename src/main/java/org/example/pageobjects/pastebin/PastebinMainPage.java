@@ -8,8 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class MainPastebinPage extends BasePage {
-    public MainPastebinPage(WebDriver webDriver) {
+public class PastebinMainPage extends BasePage {
+    public PastebinMainPage(WebDriver webDriver) {
         super(webDriver);
     }
 
@@ -37,50 +37,49 @@ public class MainPastebinPage extends BasePage {
     @FindBy(xpath = "//li[text()='Bash']")
     private WebElement bashLanguage;
 
-    public PrivacyWindow openMainPage(){
+    public PastebinPrivacyWindow openMainPage(){
         webDriver.get("https://pastebin.com/");
-        return new PrivacyWindow(webDriver);
+        return new PastebinPrivacyWindow(webDriver);
     }
 
-    public MainPastebinPage writeTextIntoTextArea(String text){
+    public PastebinMainPage writeTextIntoTextArea(String text){
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         js.executeScript("return document.readyState").equals("complete");
-//        webDriverWait.until((ExpectedCondition<Boolean>) wd ->
-//                ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
         textArea.sendKeys(text);
+
         return this;
     }
 
-    public MainPastebinPage scrollDown(int value){
+    public PastebinMainPage scrollDown(int value){
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         js.executeScript(String.format("window.scrollBy(0,%d)", value));
 
         return this;
     }
 
-    public MainPastebinPage selectExpirationTime(String expirationTime){
+    public PastebinMainPage selectExpirationTime(String expirationTime){
         webDriverWait.until(ExpectedConditions.elementToBeClickable(expirationTimeListDropDownMenu));
         expirationTimeListDropDownMenu.click();
 
         if(expirationTime.equalsIgnoreCase("10 min")){
-            webDriverWait.until(ExpectedConditions.visibilityOf(expiration10min));
+            waitForVisibility(expiration10min);
             expiration10min.click();
         }
 
         return this;
     }
 
-    public MainPastebinPage selectLanguage(String language){
+    public PastebinMainPage selectLanguage(String language){
         webDriverWait.until(ExpectedConditions.elementToBeClickable(syntaxHighlightingDropDownMenu));
 
         syntaxHighlightingDropDownMenu.click();
         WebElement selectedLanguage = webDriver.findElement(By.xpath(String.format("//li[text()='%s']", language)));
-        webDriverWait.until(ExpectedConditions.visibilityOf(selectedLanguage));
+        waitForVisibility(selectedLanguage);
         bashLanguage.click();
         return this;
     }
 
-    public MainPastebinPage setTitle(String text){
+    public PastebinMainPage setTitle(String text){
         title.sendKeys(text);
         return this;
     }

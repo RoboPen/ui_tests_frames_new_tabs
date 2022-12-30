@@ -1,7 +1,6 @@
 package org.example.pageobjects.pastebin;
 
 import org.example.pageobjects.BasePage;
-import org.example.pageobjects.pastebin.MainPastebinPage;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -13,16 +12,15 @@ import org.openqa.selenium.support.ui.Wait;
 
 import java.time.Duration;
 
-public class PrivacyWindow extends BasePage {
-    public PrivacyWindow(WebDriver webDriver) {
+public class PastebinPrivacyWindow extends BasePage {
+    public PastebinPrivacyWindow(WebDriver webDriver) {
         super(webDriver);
     }
 
     @FindBy(xpath ="//button[text()='AGREE']")
     private WebElement agreePrivacyBtn;
 
-    public MainPastebinPage clickAgree(){
-//        webDriverWait.until(ExpectedConditions.visibilityOf(agreePrivacyBtn));
+    public PastebinMainPage clickAgree(){
         Wait<WebDriver> wait = new FluentWait<>(webDriver)
                 .withTimeout(Duration.ofSeconds(30))
                 .pollingEvery(Duration.ofSeconds(1))
@@ -32,6 +30,6 @@ public class PrivacyWindow extends BasePage {
         wait.until(ExpectedConditions.visibilityOf(agreePrivacyBtn));
 
         agreePrivacyBtn.click();
-        return new MainPastebinPage(webDriver);
+        return new PastebinMainPage(webDriver);
     }
 }
