@@ -91,12 +91,8 @@ public class MyFrame extends BasePage {
         return this;
     }
 
-    public MyFrame clickInstanceSeriesTypeDropDownMenu() {
+    public MyFrame setInstanceSeries(String series) {
         instanceSeriesTypeDropDownMenu.click();
-        return this;
-    }
-
-    public MyFrame selectInstanceSeries(String series) {
         instanceSeries.stream()
                 .filter(e -> e.getAttribute("value").equalsIgnoreCase(series))
                 .findFirst()
@@ -105,12 +101,8 @@ public class MyFrame extends BasePage {
         return this;
     }
 
-    public MyFrame clickMachineTypeDropDownMenu() {
+    public MyFrame setMachineType(String machineType) {
         machineTypeDropDownMenu.click();
-        return this;
-    }
-
-    public MyFrame selectMachineType(String machineType) {
         machineTypes.stream()
                 .filter(e -> e.getText().contains(machineType))
                 .findFirst()
@@ -124,13 +116,9 @@ public class MyFrame extends BasePage {
         return this;
     }
 
-    public MyFrame clickGPUtypeDropDownMenu() {
+    public MyFrame setGPUType(String GPUType) {
         webDriverWait.until(ExpectedConditions.visibilityOf(GPUtypeDropDownMenu));
         GPUtypeDropDownMenu.click();
-        return this;
-    }
-
-    public MyFrame selectGPUType(String GPUType) {
         GPUTypes.stream()
                 .filter(e -> e.getText().equalsIgnoreCase(GPUType))
                 .findFirst()
@@ -139,12 +127,8 @@ public class MyFrame extends BasePage {
         return this;
     }
 
-    public MyFrame clickNumberOfGPUsDropDownMenu() {
+    public MyFrame setNumberOfGPU(String numberOfGPU) {
         numberOfGPUsDropDownMenu.click();
-        return this;
-    }
-
-    public MyFrame selectNumberOfGPU(String numberOfGPU) {
         numbersOfGPU.stream()
                 .filter(e -> e.getText().equalsIgnoreCase(numberOfGPU))
                 .findFirst()
@@ -153,12 +137,8 @@ public class MyFrame extends BasePage {
         return this;
     }
 
-    public MyFrame clickLocalSSDDropDownMenu() {
+    public MyFrame setLocalSSD(String localSSD) {
         localSSDDropDownMenu.click();
-        return this;
-    }
-
-    public MyFrame selectLocalSSD(String localSSD) {
         localSSDs.stream()
                 .filter(e -> e.getText().equalsIgnoreCase(localSSD))
                 .findFirst()
@@ -167,12 +147,8 @@ public class MyFrame extends BasePage {
         return this;
     }
 
-    public MyFrame clickDatacenterLocationDropDownMenu() {
+    public MyFrame setRegion(String region) {
         datacenterLocationDropDownMenu.click();
-        return this;
-    }
-
-    public MyFrame selectRegion(String region) {
         regions.stream()
                 .filter(e -> e.getText().contains(region))
                 .findFirst()
@@ -181,12 +157,8 @@ public class MyFrame extends BasePage {
         return this;
     }
 
-    public MyFrame clickCommittedUsageDropDownMenu() {
+    public MyFrame setCommittedUsage(String committedUsage) {
         committedUsageDropDownMenu.click();
-        return this;
-    }
-
-    public MyFrame selectCommittedUsage(String committedUsage) {
         committedUsages.stream()
                 .filter(e -> e.getText().equalsIgnoreCase(committedUsage))
                 .findFirst()
@@ -199,7 +171,6 @@ public class MyFrame extends BasePage {
         addToEstimateBtn.click();
         return this;
     }
-
 
     public String getRegionEstimate() {
         webDriverWait.until(ExpectedConditions.visibilityOf(regionEstimate));

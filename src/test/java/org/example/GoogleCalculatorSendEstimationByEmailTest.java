@@ -3,7 +3,6 @@ package org.example;
 import org.example.pageobjects.googlecloud.GoogleCloudCalculatorPage;
 import org.example.pageobjects.googlecloud.GoogleCloudMainPage;
 import org.example.pageobjects.yopmail.EmailGeneratorPage;
-import org.example.pageobjects.yopmail.YopmailMainPage;
 import org.example.pageobjects.yopmail.YopmailPrivacyWindow;
 import org.openqa.selenium.WindowType;
 import org.testng.Assert;
@@ -38,29 +37,20 @@ public class GoogleCalculatorSendEstimationByEmailTest extends BaseTest {
                 .clickOkCookieNotification()
                 .switchToMyFrame()
                 .setNumberOfInstancesInput(numberOfInstances)
-                .clickInstanceSeriesTypeDropDownMenu()
-                .selectInstanceSeries(instanceSeries)
-                .clickMachineTypeDropDownMenu()
-                .selectMachineType(machineType)
+                .setInstanceSeries(instanceSeries)
+                .setMachineType(machineType)
                 .checkAdGPUCheckbox()
-                .clickGPUtypeDropDownMenu()
-                .selectGPUType(GPUType)
-                .clickNumberOfGPUsDropDownMenu()
-                .selectNumberOfGPU(numberOfGPU)
-                .clickLocalSSDDropDownMenu()
-                .selectLocalSSD(localSSD)
-                .clickDatacenterLocationDropDownMenu()
-                .selectRegion(region)
-                .clickCommittedUsageDropDownMenu()
-                .selectCommittedUsage(committedUsage)
+                .setGPUType(GPUType)
+                .setNumberOfGPU(numberOfGPU)
+                .setLocalSSD(localSSD)
+                .setRegion(region)
+                .setCommittedUsage(committedUsage)
                 .clickAddToEstimateBtn()
                 .getEstimatedMonthlyCost();
 
         String googleCloudCalculator = webDriver.getWindowHandle();
         webDriver.switchTo().newWindow(WindowType.TAB);
         webDriver.get("https://yopmail.com/");
-
-
 
         String generatedEmail = yopmailPrivacyWindow
                 .clickAcceptCookies()
@@ -85,8 +75,6 @@ public class GoogleCalculatorSendEstimationByEmailTest extends BaseTest {
                 .switchToIfMailFrame()
                 .getEstimatedMonthlyCost();
 
-        System.out.println(estimatedMonthlyCostFromCalculator);
-        System.out.println(estimatedMonthlyCostFromEmail);
         Assert.assertEquals(estimatedMonthlyCostFromCalculator, estimatedMonthlyCostFromEmail,
                 "Estimated costs from calculator and email are not equal");
     }
